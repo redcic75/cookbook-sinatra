@@ -6,8 +6,6 @@ require_relative "cookbook"
 require_relative "recipe"
 require_relative 'scraper_all_recipes_service'
 
-# set :bind, '0.0.0.0'
-
 configure :development do
   use BetterErrors::Middleware
   BetterErrors.application_root = File.expand_path('..', __FILE__)
@@ -31,11 +29,7 @@ get '/destroy' do
 end
 
 post '/recipes' do
-  name = params["name"]
-  description = params["description"]
-  rating = params["rating"]
-  prep_time = params["prep_time"]
-  recipe = Recipe.new(name, description, rating, prep_time)
+  recipe = Recipe.new(params["name"], params["description"], params["rating"], params["prep_time"])
   cookbook.add_recipe(recipe)
   redirect '/'
 end
