@@ -15,7 +15,6 @@ end
 
 csv_file   = File.join(__dir__, 'recipes.csv')
 cookbook   = Cookbook.new(csv_file)
-recipes_from_web = []
 
 get '/' do
   @recipes = cookbook.all
@@ -60,12 +59,5 @@ end
 post '/list-recipes' do
   ingredient = params["ingredient"]
   @recipes_from_web = ScraperAllrecipesService.new(ingredient).call
-  recipes_from_web = @recipes_from_web
   erb :listrecipes
-end
-
-get '/add-recipe-from-web' do
-  new_recipe = recipes_from_web[params["index"].to_i]
-  cookbook.add_recipe(new_recipe)
-  redirect '/'
 end
