@@ -4,7 +4,7 @@ require "pry-byebug"
 require "better_errors"
 require_relative "cookbook"
 require_relative "recipe"
-require_relative "scraper_all_recipes_service"
+require_relative 'scraper_all_recipes_service'
 
 # set :bind, '0.0.0.0'
 
@@ -15,6 +15,7 @@ end
 
 csv_file   = File.join(__dir__, 'recipes.csv')
 cookbook   = Cookbook.new(csv_file)
+recipes_from_web = []
 
 get '/' do
   @recipes = cookbook.all
@@ -27,14 +28,44 @@ end
 
 get '/destroy' do
   cookbook.remove_recipe(params["index"].to_i)
-  params["name"]
   redirect '/'
 end
 
 post '/recipes' do
   name = params["name"]
   description = params["description"]
-  recipe = Recipe.new(name, description, "5", "30")
+  rating = params["rating"]
+  prep_time = params["prep_time"]
+  recipe = Recipe.new(name, description, rating, prep_time)
   cookbook.add_recipe(recipe)
+  redirect '/'
+end
+
+get '/mark-as-done' do
+  cookbook.find(params["index"].to_i).mark_as_done
+  cookbook.update
+  redirect '/'
+end
+
+get '/mark-as-undone' do
+  cookbook.find(params["index"].to_i).mark_as_undone
+  cookbook.update
+  redirect '/'
+end
+
+get '/import' do
+  erb :import
+end
+
+post '/list-recipes' do
+  ingredient = params["ingredient"]
+  @recipes_from_web = ScraperAllrecipesService.new(ingredient).call
+  recipes_from_web = @recipes_from_web
+  erb :listrecipes
+end
+
+get '/add-recipe-from-web' do
+  new_recipe = recipes_from_web[params["index"].to_i]
+  cookbook.add_recipe(new_recipe)
   redirect '/'
 end

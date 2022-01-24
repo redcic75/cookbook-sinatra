@@ -1,3 +1,15 @@
 li {
   list-style-type: none;
 }
+
+.bi-circle,
+.bi-check-circle {
+  font-size: 1.6em;
+  color: black !important;
+}
+
+.bi-circle:hover,
+.bi-check-circle:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}

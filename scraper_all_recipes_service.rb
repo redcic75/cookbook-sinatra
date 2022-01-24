@@ -1,3 +1,6 @@
+require 'open-uri'
+require 'nokogiri'
+
 class ScraperAllrecipesService
   def initialize(ingredient)
     @ingredient = ingredient
@@ -8,6 +11,7 @@ class ScraperAllrecipesService
     html_doc = Nokogiri::HTML(URI.open(url).read, nil, "utf-8")
 
     recipes = []
+
     html_doc.search("div.card__detailsContainer").each do |element|
       name = element.search("h3.card__title").text.strip
       description = element.search("div.card__summary").text.strip

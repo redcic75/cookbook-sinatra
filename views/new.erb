@@ -1,15 +1,23 @@
-<h2>Add a new recipe to your cookbook</h2>
+<h2 class="display-4 mb-4">Add a new recipe</h2>
 <form action="/recipes" method="post">
-  <div>
-    <label for="name">Name of the recipe: </label>
-    <input type="text" name="name" id="name" required>
+  <div class="mb-3">
+    <label for="name" class="form-label">Name of the recipe: </label>
+    <input type="text" name="name" class="form-control" id="name" required>
+  </div>
+  <div class="mb-3">
+    <label for="description" class="form-label">Description of the recipe: </label>
+    <input type="text" name="description" class="form-control" id="description" required>
+  </div>
+  <div class="mb-3">
+    <label for="rating" class="form-label">Rating: </label>
+    <input type="text" name="rating" class="form-control" id="rating" required>
+  </div>
+  <div class="mb-3">
+    <label for="prep_time" class="form-label">Preparation time: </label>
+    <input type="text" name="prep_time" class="form-control" id="prep_time" required>
   </div>
   <div>
-    <label for="description">Description of the recipe: </label>
-    <input type="text" name="description" id="description" required>
-  </div>
-  <div>
-    <input type="submit" value="Add the recipe">
+    <input type="submit" value="Add the recipe" class="btn btn-primary">
   </div>
 </form>
-<a href="/">Back to index</a>
+<a class="btn btn-secondary mt-5" href="/" role="button">Back to index</a>

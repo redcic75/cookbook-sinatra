@@ -1,11 +1,37 @@
-<h2>List of recipes</h2>
-<ul>
-  <% @recipes.each_with_index do |recipe, index| %>
-    <li>
-      <% recipe_done = recipe.done? ? "X" : "&nbsp;&nbsp;" %>
-      <%= "#{index + 1}. [#{recipe_done}] #{recipe.name} : #{recipe.description} - #{recipe.rating} stars - #{recipe.prep_time} minutes" %>
-      <a href="/destroy?index=<%= index %>">Destroy</a>
-    </li>
-  <% end %>
-  <a href="/new">Add a recipe</a>
-</ul>
+<h2 class="display-4 mb-4">My recipes</h2>
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Done</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Rating</th>
+      <th scope="col">Preparation time</th>
+      <th scope="col">Delete recipe</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @recipes.each_with_index do |recipe, index| %>
+      <tr>
+        <th class="align-middle" scope="row"><%= index + 1%></th>
+        <td class="align-middle">
+          <% if recipe.done? %>
+            <a href="/mark-as-undone?index=<%= index %>" class="bi bi-check-circle done-circle"></a>
+          <% else %>
+            <a href="/mark-as-done?index=<%= index %>" class="bi bi-circle done-circle"></a>
+          <% end %>
+        </td>
+        <td class="align-middle"><%= recipe.name %></td>
+        <td class="align-middle"><%= recipe.description %></td>
+        <td class="align-middle"><%= recipe.rating %></td>
+        <td class="align-middle"><%= recipe.prep_time %> minutes</td>
+        <td class="align-middle"><a class="btn btn-danger" href="/destroy?index=<%= index %>" role="button">Delete recipe</a></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<a class="btn btn-primary" href="/new" role="button">Add a recipe</a>
+<div class="mt-2">
+  <a class="btn btn-primary" href="/import" role="button">Import a recipe</a>
+</div>

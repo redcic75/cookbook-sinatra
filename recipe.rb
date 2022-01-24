@@ -16,4 +16,8 @@ class Recipe
   def mark_as_done
     @done = true
   end
+
+  def mark_as_undone
+    @done = false
+  end
 end
