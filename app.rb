@@ -28,7 +28,7 @@ get '/destroy' do
   redirect '/'
 end
 
-post '/recipes' do
+post '/add-recipe' do
   recipe = Recipe.new(params["name"], params["description"], params["rating"], params["prep_time"])
   cookbook.add_recipe(recipe)
   redirect '/'

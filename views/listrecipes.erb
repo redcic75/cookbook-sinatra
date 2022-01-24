@@ -33,7 +33,7 @@
         </td>
         <td class="align-middle"><%= recipe.prep_time %> minutes</td>
         <td class="align-middle">
-          <form action="/recipes" method="post">
+          <form action="/add-recipe" method="post">
             <input type="hidden" type="text" id="name" name="name" value="<%= recipe.name %>">
             <input type="hidden" type="text" id="description" name="description" value="<%= recipe.description %>">
             <input type="hidden" type="text" id="rating" name="rating" value="<%= recipe.rating %>">
